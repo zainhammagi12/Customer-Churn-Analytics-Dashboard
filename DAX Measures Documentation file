@@ -1,0 +1,103 @@
+# DAX Measures Documentation
+
+All key DAX measures used in the Customer Churn Analytics Dashboard.
+
+---
+
+## Core Churn Metrics
+
+```dax
+-- Total Customers
+Total Customers = COUNTROWS(Customers)
+
+-- Total Churned
+Total Churned = 
+COUNTROWS(FILTER(Customers, Customers[Churned] = "Yes"))
+
+-- Total Retained
+Total Retained = 
+COUNTROWS(FILTER(Customers, Customers[Churned] = "No"))
+
+-- Overall Churn Rate
+Churn Rate = 
+DIVIDE([Total Churned], [Total Customers], 0)
+
+-- Retention Rate
+Retention Rate = 
+DIVIDE([Total Retained], [Total Customers], 0)
+```
+
+---
+
+## Segment Analysis
+
+```dax
+-- Churn Rate for Selected Segment
+Churn Rate Segment = 
+DIVIDE(
+    CALCULATE([Total Churned]),
+    CALCULATE([Total Customers]),
+    0
+)
+
+-- Churn Rate vs Average (for conditional formatting)
+Churn vs Average = 
+[Churn Rate Segment] - CALCULATE([Churn Rate], ALL(Customers[Segment]))
+```
+
+---
+
+## Revenue Impact
+
+```dax
+-- Revenue at Risk (churned customers)
+Revenue at Risk = 
+CALCULATE(
+    SUM(Customers[MonthlyCharges]),
+    Customers[Churned] = "Yes"
+)
+
+-- Retained Revenue
+Retained Revenue = 
+CALCULATE(
+    SUM(Customers[MonthlyCharges]),
+    Customers[Churned] = "No"
+)
+
+-- Average Revenue per Churned Customer
+Avg Revenue Churned = 
+DIVIDE([Revenue at Risk], [Total Churned], 0)
+```
+
+---
+
+## Trend Analysis
+
+```dax
+-- Churn Rate Previous Period
+Churn Rate Previous = 
+CALCULATE(
+    [Churn Rate],
+    PREVIOUSMONTH(Dates[Date])
+)
+
+-- Churn Rate Change (MoM)
+Churn Rate Change = 
+[Churn Rate] - [Churn Rate Previous]
+```
+
+---
+
+## Tenure Bands
+
+```dax
+-- Tenure Band (Calculated Column)
+Tenure Band = 
+SWITCH(
+    TRUE(),
+    Customers[Tenure] <= 6,   "0-6 Months",
+    Customers[Tenure] <= 12,  "6-12 Months",
+    Customers[Tenure] <= 24,  "1-2 Years",
+    "2+ Years"
+)
+```
