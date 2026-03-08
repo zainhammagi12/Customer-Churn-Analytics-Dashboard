@@ -1,0 +1,12 @@
+# Customer Churn Analytics Dashboard
+# Requirements
+
+## Power BI Desktop
+Version: 2.0 or later (free download)
+Download: https://powerbi.microsoft.com/desktop/
+
+## No additional Python or package dependencies required
+## Dashboard is entirely built within Power BI Desktop using:
+# - Power Query (M language) for data transformation
+# - DAX for measures and calculated columns
+# - Power BI visualisations (no custom visuals required)
