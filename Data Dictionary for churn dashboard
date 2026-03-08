@@ -1,0 +1,36 @@
+# Data Dictionary
+
+Column definitions for the Customer Churn Analytics Dashboard dataset.
+
+---
+
+## Customer Table
+
+| Column | Type | Description | Example Values |
+|--------|------|-------------|----------------|
+| CustomerID | Text | Unique customer identifier | C-00001 |
+| Churned | Text | Whether the customer has churned | Yes / No |
+| Tenure | Integer | Months as a customer | 0–72 |
+| TenureBand | Text | Grouped tenure range (calculated) | 0-6 Months, 6-12 Months, 1-2 Years, 2+ Years |
+| MonthlyCharges | Decimal | Monthly subscription charge | 20.00–120.00 |
+| TotalCharges | Decimal | Cumulative charges to date | — |
+| ContractType | Text | Contract length | Month-to-Month, One Year, Two Year |
+| PaymentMethod | Text | How the customer pays | Bank Transfer, Credit Card, Electronic Check |
+| Gender | Text | Customer gender | Male / Female |
+| SeniorCitizen | Integer | Whether the customer is a senior | 0 / 1 |
+| Partner | Text | Whether the customer has a partner | Yes / No |
+| Dependants | Text | Whether the customer has dependants | Yes / No |
+| PhoneService | Text | Has phone service | Yes / No |
+| InternetService | Text | Internet service type | DSL, Fibre Optic, No |
+| OnlineSecurity | Text | Has online security add-on | Yes / No / No Internet Service |
+| TechSupport | Text | Has tech support add-on | Yes / No / No Internet Service |
+| StreamingTV | Text | Has streaming TV | Yes / No / No Internet Service |
+
+---
+
+## Notes
+
+- All personally identifiable information has been removed or anonymised
+- MonthlyCharges and TotalCharges have been cleaned to remove blank strings converted to nulls
+- Churned field was originally encoded as 0/1 integer and converted to Yes/No text in Power Query
+- TenureBand is a calculated column created in DAX (see dax_measures.md)
